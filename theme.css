@@ -87,6 +87,7 @@ header {
 
 #answer_container > label {
     display: block;
+    padding: 0.1em;
 }
 
 .right_answers {
