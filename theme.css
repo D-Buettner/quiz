@@ -51,8 +51,48 @@ header {
     font-size: 8em;
     text-align: center;
     font-family: 'Montserrat', sans-serif;
-    border-bottom: solid 10px;
-    margin-bottom: 10px;
+    border-bottom: solid 0.08em;
+    margin-bottom: 0.1em;
     padding-bottom: 3px;
 
+}
+
+#question_text {
+    /*background-color: #E8E8E8;*/
+    width: 67%;
+    margin: auto;
+    text-align: center;
+    font-family: 'Bitter', serif;
+    font-size: 3em;
+    border-radius: 4px;
+}
+
+.answer_buttons_right {
+    text-align: right;
+}
+
+#answer_container {
+    text-align: right;
+    font-family: 'Bitter', serif;
+    font-size: 2em;
+    padding-bottom: 0.5em;
+    margin-top: 6em;
+    -moz-column-count: 2;
+    -moz-column-gap: 8em;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 8em;
+    column-count: 2;
+    column-gap: 8em;
+}
+
+#answer_container > label {
+    display: block;
+}
+
+.right_answers {
+    text-align: left;
+}
+
+label {
+    padding-top: 0.3em;
 }

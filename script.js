@@ -1,6 +1,6 @@
 var questions = [
-  {question:"Who was the 'founder' and first Governer-General of Pakistan in 1947?",
-    choices:["J. Nehru", "M. Gandhi", "M. Jinnah", "L. Khan"], correctAnswer:2},
+  {question:"Who was 'founder' and first Governor-General of Pakistan in 1947?",
+    choices:["M. Gandhi", "J. Nehru", "M. Jinnah", "L. Khan"], correctAnswer:2},
   {question:"What is Attila the Hun also known as?", 
     choices:["The Scourge of the West", "The Scourge of God", 
               "The Scourge of the Papacy","Jody Highroller"], correctAnswer:1},
@@ -26,13 +26,19 @@ Game.prototype.displayNextQuestion = function(questionIndex) {
   // Seperate functions for modularity (maybe change to jQuery later?)
   clearOldQuestion();
   var qForm = createForm();
+
   // Create question text
-  var questionText = document.createTextNode(currentQuestion.question);
+  var questionText = createQuestion(currentQuestion.question);
   qForm.appendChild(questionText);
+  
   // Create Answers
-  for (var i = 0; i < currentQuestion.choices.length; i++) {
-    qForm.appendChild(createAnswer(currentQuestion.choices[i], i));
+  var answerContainer = document.createElement("div");
+  answerContainer.setAttribute("id", "answer_container");
+  var answerList = createAnswers(currentQuestion);
+  for (var i = 0; i < answerList.length; i++) {
+    answerContainer.appendChild(answerList[i]);
   }
+  qForm.appendChild(answerContainer);
   // Create submit button
   var submitButton = document.createElement("input");
   submitButton.setAttribute("type", "submit");
@@ -60,7 +66,7 @@ Game.prototype.submitQuestion = function(question, answer) {
     this.score += 1;
   }
   this.questionCounter += 1;
-  console.log(this.questionCounter, this.totalQs)
+  console.log('hey' + this.questionCounter, this.totalQs)
   this.displayNextQuestion(this.questionCounter);
 }
 
@@ -83,7 +89,6 @@ function clearOldQuestion() {
   }
 }
 function writeToPage(stuff) {
-  console.log(stuff)
   var target = document.getElementById("quiz_app");
   target.appendChild(stuff);
 }
@@ -97,19 +102,36 @@ function createForm() {
   return qForm;
 }
 
-function createAnswer(text, index) {
-  var answerLabel = document.createElement("label");
-  // textContent prefered over innerHTML for sec and performance
-  answerLabel.textContent = text;
-  var button = document.createElement("input");
-  button.setAttribute("type", "radio");
-  button.setAttribute("name", "selected_answer");
-  button.setAttribute("value", index);
-  button.setAttribute("class", "answer_choices")
-  answerLabel.appendChild(button);
-  return answerLabel;
-}
+function createQuestion(text) {
+    var questionText = document.createElement("div");
+    questionText.textContent = text;
+    questionText.setAttribute("id", "question_text");
+    return questionText;
+  }
 
+function createAnswers(question) {
+  var answers = [];
+  for (var i = 0; i < question.choices.length; i++) {
+    var answerLabel = document.createElement("label");
+    answerLabel.setAttribute("id", "answer_" + i);
+    // textContent prefered over innerHTML for sec and performance
+    answerLabel.textContent = question.choices[i];
+  
+    var button = document.createElement("input");
+    button.setAttribute("type", "radio");
+    button.setAttribute("name", "selected_answer");
+    button.setAttribute("value", i);
+    button.setAttribute("class", 'answer_choices')
+    if (i < question.choices.length / 2.0) {
+      answerLabel.appendChild(button);
+    } else {
+      answerLabel.insertBefore(button, answerLabel.firstChild);
+      answerLabel.setAttribute("class", "right_answers");
+    }
+    answers.push(answerLabel);
+  }
+  return answers;
+}
 
 function runGame(question_list) {
   var CurrentGame = new Game(question_list);
