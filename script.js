@@ -1,18 +1,30 @@
 var questions = [
-  {question:"Who was 'founder' and first Governor-General of Pakistan in 1947?",
-    choices:["M. Gandhi", "J. Nehru", "M. Jinnah", "L. Khan"], correctAnswer:2},
+
+  {question:"Gavrilo Princip assasinated the Archduke Franz Ferdinand in 1914, leading to the onset of WWI. What country was he from?",
+    choices:["Russia", "Germany", "Bosnia", "Serbia"], correctAnswer:3},
   {question:"What is Attila the Hun also known as?", 
     choices:["The Scourge of the West", "The Scourge of God", 
               "The Scourge of the Papacy","Jody Highroller"], correctAnswer:1},
   {question:"In what year did the Great Fire of London occur?",
     choices:["1666", "666", "1766", "1966"], correctAnswer:0},
+  {question:"Which American politician led infamous anti-communist hearings in 1954?",
+     choices:["Joseph McCarthy", "John McCain","William McKinley", "Ronald McDonald" ],
+              correctAnswer:0},
+  {question:"The American invasion of Iraq in 1991 was known as Operation.. ?",
+    choices:["Desert Wind", "Desert flower", "Desert Cactus", "Desert Storm"], correctAnswer:3}
+  {question:"What international confrontation during the cold war nearly led to nuclear weapons being used in open warfare?",
+    choices:["The Cuban Rum Crisis", "The Cuban Missile Crisis", "The Cuban Embargo Crisis",
+             "The Cuban Salsa Crisis"], correctAnswer:1},
+  {question:"Who was 'founder' and first Governor-General of Pakistan in 1947?",
+    choices:["M. Gandhi", "J. Nehru", "M. Jinnah", "L. Khan"], correctAnswer:2},
+  {question:"Which great Spanish military leader famously faught for both the Spanish and the Moors during the Reconquista?",
+    choices:["El Empecinado","El Greco","El Cid","Elton John"], correctAnswer:2}
   {question:"What did Julius Caesar cross in 49 BC to begin the Great Roman Civil War?",
     choices:["The Alps", "The Rubicon", "The English Channel",
              "His Shoelaces"], correctAnswer:1},
   {question:"What city did the Ottoman Sultan Mehmed II 'The conqueror' capture in 1453?",
-     choices:["Rome", "Vienna", "Jerusalem", "Constantinple"], correctAnswer:3},
-  {question:"Which famous American politician led infamous anti-communist hearings in 1954?",
-   choices:["Joseph McCarthy", "John McCain","William McKinley", "Ronald McDonald" ], correctAnswer:0}
+    choices:["Rome", "Vienna", "Jerusalem", "Constantinple"], correctAnswer:3},
+
 ];
 //{question:, choices:[], correctAnswer:},
 
