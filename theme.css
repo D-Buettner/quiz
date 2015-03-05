@@ -61,9 +61,10 @@ header {
     /*background-color: #E8E8E8;*/
     width: 67%;
     margin: auto;
+    margin-top: 1em;
     text-align: center;
     font-family: 'Bitter', serif;
-    font-size: 3em;
+    font-size: 4em;
     border-radius: 4px;
 }
 
@@ -73,27 +74,71 @@ header {
 
 #answer_container {
     text-align: right;
-    font-family: 'Bitter', serif;
-    font-size: 2em;
+    font-family: 'Vollkorn', serif;
+    font-size: 3em;
     padding-bottom: 0.5em;
-    margin-top: 6em;
+    margin-top: 1.2em;
+    padding-top: 0.5em;
     -moz-column-count: 2;
-    -moz-column-gap: 8em;
+    -moz-column-gap: 4em;
     -webkit-column-count: 2;
-    -webkit-column-gap: 8em;
+    -webkit-column-gap: 4em;
     column-count: 2;
-    column-gap: 8em;
+    column-gap: 4em;
 }
 
 #answer_container > label {
     display: block;
     padding: 0.1em;
+    height: 1.2em;
 }
 
 .right_answers {
+    display: block;
     text-align: left;
+    /*position: relative;
+    top: -0.08em;*/
 }
 
 label {
-    padding-top: 0.3em;
+    padding-top: 0.5em;
+    border: transparent 0.2em;
 }
+
+input[type=radio]:not(old){
+  width   : 0;
+  margin  : 0;
+  padding : 0;
+  font-size:0;
+  opacity : 0;
+  overflow: hidden;
+}
+
+#buttons {
+    width: 100%;
+    height: 15%;
+}
+
+label > span {
+    width: 0.5em;
+    height: 0.5em;
+    margin: 0.2em;
+    margin-bottom: 0;
+    border: 0.0831245em solid black;
+    border-radius: 50%;
+    display:inline-block;
+    position: relative;
+    top: 0.1em;
+
+}
+
+input[type=radio]:checked + span > span {
+    width: 0.5em;
+    height: 0.5em;
+    background-color: black;
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+}
+
+

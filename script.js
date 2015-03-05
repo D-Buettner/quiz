@@ -39,11 +39,10 @@ Game.prototype.displayNextQuestion = function(questionIndex) {
     answerContainer.appendChild(answerList[i]);
   }
   qForm.appendChild(answerContainer);
-  // Create submit button
-  var submitButton = document.createElement("input");
-  submitButton.setAttribute("type", "submit");
-  submitButton.setAttribute("id", "submit_button");
-  qForm.appendChild(submitButton);
+  
+  var buttons = createButtons();
+  qForm.appendChild(buttons);
+
   // Event listener for submit button
   // Maybe redo that/this with bind?
   var that = this;
@@ -110,27 +109,45 @@ function createQuestion(text) {
   }
 
 function createAnswers(question) {
+  // Create list of answers. Half 'left' sided, half 'right' sided.
   var answers = [];
   for (var i = 0; i < question.choices.length; i++) {
     var answerLabel = document.createElement("label");
     answerLabel.setAttribute("id", "answer_" + i);
-    // textContent prefered over innerHTML for sec and performance
+    // textContent prefered over innerHTML
     answerLabel.textContent = question.choices[i];
-  
+    // Spans to create custom radio button.
+    var span = document.createElement("span");
+    span.appendChild(document.createElement("span"));
     var button = document.createElement("input");
     button.setAttribute("type", "radio");
     button.setAttribute("name", "selected_answer");
     button.setAttribute("value", i);
     button.setAttribute("class", 'answer_choices')
+    // Class and span depending on side.
     if (i < question.choices.length / 2.0) {
-      answerLabel.appendChild(button);
+      answerLabel.insertBefore(button, answerLabel.firstChild);
+      answerLabel.appendChild(span);
+      answerLabel.setAttribute("class", "left_answers");
     } else {
+      answerLabel.insertBefore(span, answerLabel.firstChild);
       answerLabel.insertBefore(button, answerLabel.firstChild);
       answerLabel.setAttribute("class", "right_answers");
     }
     answers.push(answerLabel);
   }
   return answers;
+}
+
+function createButtons() {
+  // Create submit button
+  var buttonsDiv = document.createElement("div");
+  buttonsDiv.setAttribute("id", "buttons");
+  var submitButton = document.createElement("input");
+  submitButton.setAttribute("type", "submit");
+  submitButton.setAttribute("id", "submit_button");
+  buttonsDiv.appendChild(submitButton);
+  return buttonsDiv;
 }
 
 function runGame(question_list) {
