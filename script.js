@@ -65,12 +65,10 @@ Game.prototype.submitQuestion = function(question, answer) {
     this.score += 1;
   }
   this.questionCounter += 1;
-  console.log('hey' + this.questionCounter, this.totalQs)
   this.displayNextQuestion(this.questionCounter);
 }
 
 Game.prototype.displayScore = function() {
-  console.log('hey heres the score');
   // display score. Make more complex later? (diff text for better scores)
   clearOldQuestion();
   var scoreString = "You scored: ";
@@ -78,7 +76,11 @@ Game.prototype.displayScore = function() {
   scoreString += " out of ";
   scoreString += this.totalQs;
   scoreString += " Thanks for playing the quiz!"
-  writeToPage(document.createTextNode(scoreString));
+  scoreString = document.createTextNode(scoreString)
+  var scoreStringHolder = document.createElement("div");
+  scoreStringHolder.setAttribute("id", "score");
+  scoreStringHolder.appendChild(scoreString);
+  writeToPage(scoreStringHolder);
 }
 
 function clearOldQuestion() {
