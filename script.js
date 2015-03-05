@@ -11,14 +11,14 @@ var questions = [
      choices:["Joseph McCarthy", "John McCain","William McKinley", "Ronald McDonald" ],
               correctAnswer:0},
   {question:"The American invasion of Iraq in 1991 was known as Operation.. ?",
-    choices:["Desert Wind", "Desert flower", "Desert Cactus", "Desert Storm"], correctAnswer:3}
+    choices:["Desert Wind", "Desert flower", "Desert Cactus", "Desert Storm"], correctAnswer:3},
   {question:"What international confrontation during the cold war nearly led to nuclear weapons being used in open warfare?",
     choices:["The Cuban Rum Crisis", "The Cuban Missile Crisis", "The Cuban Embargo Crisis",
              "The Cuban Salsa Crisis"], correctAnswer:1},
   {question:"Who was 'founder' and first Governor-General of Pakistan in 1947?",
     choices:["M. Gandhi", "J. Nehru", "M. Jinnah", "L. Khan"], correctAnswer:2},
   {question:"Which great Spanish military leader famously faught for both the Spanish and the Moors during the Reconquista?",
-    choices:["El Empecinado","El Greco","El Cid","Elton John"], correctAnswer:2}
+    choices:["El Empecinado","El Greco","El Cid","Elton John"], correctAnswer:2},
   {question:"What did Julius Caesar cross in 49 BC to begin the Great Roman Civil War?",
     choices:["The Alps", "The Rubicon", "The English Channel",
              "His Shoelaces"], correctAnswer:1},
