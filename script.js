@@ -4,8 +4,15 @@ var questions = [
   {question:"What is Attila the Hun also known as?", 
     choices:["The Scourge of the West", "The Scourge of God", 
               "The Scourge of the Papacy","Jody Highroller"], correctAnswer:1},
-{question:"In what year did the Great Fire of London occur?",
-     choices:["1666", "666", "1766", "1966"], correctAnswer:0}
+  {question:"In what year did the Great Fire of London occur?",
+    choices:["1666", "666", "1766", "1966"], correctAnswer:0},
+  {question:"What did Julius Caesar cross in 49 BC to begin the Great Roman Civil War?",
+    choices:["The Alps", "The Rubicon", "The English Channel",
+             "His Shoelaces"], correctAnswer:1},
+  {question:"What city did the Ottoman Sultan Mehmed II 'The conqueror' capture in 1453?",
+     choices:["Rome", "Vienna", "Jerusalem", "Constantinple"], correctAnswer:3},
+  {question:"Which famous American politician led infamous anti-communist hearings in 1954?",
+   choices:["Joseph McCarthy", "John McCain","William McKinley", "Ronald McDonald" ], correctAnswer:0}
 ];
 //{question:, choices:[], correctAnswer:},
 
@@ -159,5 +166,3 @@ function runGame(question_list) {
   var CurrentGame = new Game(question_list);
   CurrentGame.displayNextQuestion(0);
 }
-
-
