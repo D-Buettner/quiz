@@ -61,7 +61,7 @@ header {
     /*background-color: #E8E8E8;*/
     width: 67%;
     margin: auto;
-    margin-top: 1em;
+    margin-top: 0.4em;
     text-align: center;
     font-family: 'Bitter', serif;
     font-size: 4em;
@@ -76,21 +76,22 @@ header {
     text-align: right;
     font-family: 'Vollkorn', serif;
     font-size: 3em;
-    padding-bottom: 0.5em;
-    margin-top: 1.2em;
+    padding-bottom: 0.2em;
+    margin-top: 0em;
+    margin-bottom: 0.3em;
     padding-top: 0.5em;
     -moz-column-count: 2;
-    -moz-column-gap: 4em;
+    -moz-column-gap: 3em;
     -webkit-column-count: 2;
-    -webkit-column-gap: 4em;
+    -webkit-column-gap: 3em;
     column-count: 2;
-    column-gap: 4em;
+    column-gap: 3em;
 }
 
 #answer_container > label {
     display: block;
     padding: 0.1em;
-    height: 1.2em;
+    height: 1.5em;
 }
 
 .right_answers {
@@ -98,11 +99,6 @@ header {
     text-align: left;
     /*position: relative;
     top: -0.08em;*/
-}
-
-label {
-    padding-top: 0.5em;
-    border: transparent 0.2em;
 }
 
 input[type=radio]:not(old){
@@ -117,6 +113,23 @@ input[type=radio]:not(old){
 #buttons {
     width: 100%;
     height: 15%;
+    text-align: center;
+    padding-top: 0.5em;
+}
+
+#buttons > label {
+    font-family: 'Bitter', sans-serif;
+    font-size: 2em;
+    padding-top: 0.2em;
+}
+
+#buttons input {
+  width   : 0;
+  margin  : 0;
+  padding : 0;
+  font-size:0;
+  opacity : 0;
+  overflow: hidden;
 }
 
 label > span {

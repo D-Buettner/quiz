@@ -143,10 +143,13 @@ function createButtons() {
   // Create submit button
   var buttonsDiv = document.createElement("div");
   buttonsDiv.setAttribute("id", "buttons");
-  var submitButton = document.createElement("input");
-  submitButton.setAttribute("type", "submit");
-  submitButton.setAttribute("id", "submit_button");
-  buttonsDiv.appendChild(submitButton);
+  var nextButtonHolder = document.createElement("label");
+  nextButtonHolder.textContent = "Next";
+  var nextButton = document.createElement("input");
+  nextButton.setAttribute("type", "submit");
+  nextButton.setAttribute("id", "submit_button");
+  nextButtonHolder.appendChild(nextButton);
+  buttonsDiv.appendChild(nextButtonHolder);
   return buttonsDiv;
 }
 
