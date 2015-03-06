@@ -2,7 +2,7 @@ var questions = [
 
   {question:"Gavrilo Princip assasinated the Archduke Franz Ferdinand in 1914, leading to the onset of WWI. What country was he from?",
     choices:["Russia", "Germany", "Bosnia", "Serbia"], correctAnswer:3},
-  {question:"What is Attila the Hun also known as?", 
+  {question:"What was Attila the Hun also known as?", 
     choices:["The Scourge of the West", "The Scourge of God", 
               "The Scourge of the Papacy","Jody Highroller"], correctAnswer:1},
   {question:"In what year did the Great Fire of London occur?",
@@ -124,7 +124,9 @@ function createForm() {
 
 function createQuestion(text) {
     var questionText = document.createElement("div");
-    questionText.textContent = text;
+    var innerTextDiv = document.createElement("div");
+    innerTextDiv.textContent = text;
+    questionText.appendChild(innerTextDiv);
     questionText.setAttribute("id", "question_text");
     return questionText;
   }
