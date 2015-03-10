@@ -51,13 +51,30 @@ html {
     height: 100%;
 }
 
+div {
+    /*background-color: #E8E8E8;*/
+    height: 31vh;
+
+    margin: auto;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: 2vh;
+    text-align: center;
+    font-family: 'Bitter', serif;
+    font-size: 6vh;
+    border-radius: 4px;
+    line-height: normal;
+    vertical-align: middle;
+}
+
 header {
-    font-size: 13.6vh;
+    font-size: 14vh;
     text-align: center;
     font-family: 'Montserrat', sans-serif;
     border-bottom: solid 1.4vh;
     margin-bottom: 0;
     padding-bottom: 1vh;
+    width: 100%;
 
 }
 
@@ -69,7 +86,7 @@ header {
     height: 29vh;
     text-align: right;
     font-family: 'Vollkorn', serif;
-    font-size: 3.5vw;
+    font-size: 2.8vw;
     margin-top: 1vh;
     padding-top: 5vh;
     -moz-column-count: 2;
@@ -126,13 +143,13 @@ input[type=radio]:checked + span > span {
 
 #buttons {
     width: 100%;
-    height: 16vh;
+    height: 15.8vh;
     text-align: center;
 }
 
 #buttons > label {
     font-family: 'Bitter', sans-serif;
-    font-size: 8vh;
+    font-size: 7.2vh;
     padding-top: 0;
     vertical-align: middle;
     line-height: normal;
@@ -163,12 +180,14 @@ input[type=radio]:checked + span > span {
 #question_text {
     /*background-color: #E8E8E8;*/
     height: 31vh;
-    width: 85%;
+
     margin: auto;
+    margin-left: 10%;
+    margin-right: 10%;
     padding-top: 2vh;
     text-align: center;
     font-family: 'Bitter', serif;
-    font-size: 7.5vh;
+    font-size: 6vh;
     border-radius: 4px;
     display: table-cell;
     line-height: normal;
@@ -177,4 +196,7 @@ input[type=radio]:checked + span > span {
 
 #question_text > div {
     display: inline-block;
+    text-align: center;
+    margin-left: 10vw;
+    margin-right: 10vw;
 }

@@ -1,49 +1,55 @@
-var questions = [
-
-  {question:"Gavrilo Princip assasinated the Archduke Franz Ferdinand in 1914, leading to the onset of WWI. What country was he from?",
-    choices:["Russia", "Germany", "Bosnia", "Serbia"], correctAnswer:3},
-  {question:"What was Attila the Hun also known as?", 
-    choices:["The Scourge of the West", "The Scourge of God", 
-              "The Scourge of the Papacy","Jody Highroller"], correctAnswer:1},
-  {question:"In what year did the Great Fire of London occur?",
-    choices:["1666", "666", "1766", "1966"], correctAnswer:0},
-  {question:"Which American politician led infamous anti-communist hearings in 1954?",
-     choices:["Joseph McCarthy", "John McCain","William McKinley", "Ronald McDonald" ],
-              correctAnswer:0},
-  {question:"The American invasion of Iraq in 1991 was known as Operation.. ?",
-    choices:["Desert Wind", "Desert flower", "Desert Cactus", "Desert Storm"], correctAnswer:3},
-  {question:"What international confrontation during the cold war nearly led to nuclear weapons being used in open warfare?",
-    choices:["The Cuban Rum Crisis", "The Cuban Missile Crisis", "The Cuban Embargo Crisis",
-             "The Cuban Salsa Crisis"], correctAnswer:1},
-  {question:"Who was 'founder' and first Governor-General of Pakistan in 1947?",
-    choices:["M. Gandhi", "J. Nehru", "M. Jinnah", "L. Khan"], correctAnswer:2},
-  {question:"Which great Spanish military leader famously faught for both the Spanish and the Moors during the Reconquista?",
-    choices:["El Empecinado","El Greco","El Cid","Elton John"], correctAnswer:2},
-  {question:"What did Julius Caesar cross in 49 BC to begin the Great Roman Civil War?",
-    choices:["The Alps", "The Rubicon", "The English Channel",
-             "His Shoelaces"], correctAnswer:1},
-  {question:"What city did the Ottoman Sultan Mehmed II 'The conqueror' capture in 1453?",
-    choices:["Rome", "Vienna", "Jerusalem", "Constantinple"], correctAnswer:3},
-
-];
-//{question:, choices:[], correctAnswer:},
-
-function Game(questionList) {
-  this.questions = questionList;
-  this.questionCounter = 0;
-  this.totalQs = questionList.length;
+function Game() {
+  this.questionCounter = -1;
+  this.totalQs = null;
   this.score = 0;
+  this.userAnswers = [];
 
 }
+
+Game.prototype.getQuestions = function() {
+  var gameObjRef = this;
+  console.log('getting questions..');
+  var questionURL = "questions.json";
+  this.httpRequest = new XMLHttpRequest();
+  this.httpRequest.onreadystatechange = function() {
+    // change status for live site- can show as 0 locally
+    if (this.readyState != 4 || this.status === 404) {
+      console.log('Questions not Loaded');
+      return;
+    } else {
+      gameObjRef.questions = JSON.parse(this.responseText);
+      console.log('Questions Loaded', gameObjRef.questions);
+      gameObjRef.firstPage();
+      return;
+    }
+  }
+  this.httpRequest.open("GET", questionURL, true);
+  this.httpRequest.send();
+}
+
+Game.prototype.firstPage = function() {
+  console.log('yoyoyo', this.questions);
+  var openingMenu = document.createElement("div");
+  var introText = document.createElement("div");
+  introText.textContent = "Welcome to the quiz. ";
+  introText.textContent += "Click below to get started."
+  openingMenu.appendChild(introText);
+  var buttons = createButtons(this.questionCounter, this.totalQs, this);
+  openingMenu.appendChild(buttons);
+  writeToPage(openingMenu);
+}
+
 // Use prototype, users may ending up starting a new game
-Game.prototype.displayNextQuestion = function(questionIndex) {
-  if (questionIndex >= this.totalQs) {
+Game.prototype.displayNextQuestion = function() {
+  var questionIndex = this.questionCounter;
+  var totalQs = this.totalQs;
+  if (questionIndex >= totalQs) {
     this.displayScore();
     return null;
   }
   var currentQuestion = this.questions[questionIndex];
   // Seperate functions for modularity (maybe change to jQuery later?)
-  clearOldQuestion();
+  clearPrevious();
   var qForm = createForm();
 
   // Create question text
@@ -59,37 +65,26 @@ Game.prototype.displayNextQuestion = function(questionIndex) {
   }
   qForm.appendChild(answerContainer);
   
-  var buttons = createButtons();
+  var buttons = createButtons(questionIndex, totalQs, this);
   qForm.appendChild(buttons);
 
-  // Event listener for submit button
-  // Maybe redo that/this with bind?
-  var that = this;
-  qForm.addEventListener("submit", 
-        function(event) {
-          var answers = document.getElementsByClassName("answer_choices");
-          for (var i = 0; i < answers.length; i++) {
-            if (answers[i].checked){
-              that.submitQuestion(currentQuestion, answers[i].value);
-            }
-            // Stops form from reloading 
-            event.preventDefault();
-          }
-        });
+
   writeToPage(qForm);
 }
 
 Game.prototype.submitQuestion = function(question, answer) {
-  if (question.correctAnswer === parseInt(answer)) {
-    this.score += 1;
-  }
+  this.userAnswers[question] = parseInt(answer);
   this.questionCounter += 1;
   this.displayNextQuestion(this.questionCounter);
 }
 
 Game.prototype.displayScore = function() {
-  // display score. Make more complex later? (diff text for better scores)
-  clearOldQuestion();
+  for (var i = 0; i < this.totalQs; i++) {
+    if (this.userAnswers[i] === this.questions[i].correctAnswer) {
+      this.score += 1;
+    }
+  }
+  clearPrevious();
   var scoreString = "You scored: ";
   scoreString += this.score;
   scoreString += " out of ";
@@ -102,12 +97,13 @@ Game.prototype.displayScore = function() {
   writeToPage(scoreStringHolder);
 }
 
-function clearOldQuestion() {
-  var oldForm = document.getElementById("question_form");
-  if (oldForm) {
-    oldForm.parentNode.removeChild(oldForm);
+function clearPrevious() {
+  var quizHolder = document.getElementById("quiz_app");
+  while (quizHolder.firstChild) {
+    quizHolder.removeChild(quizHolder.firstChild);
   }
 }
+
 function writeToPage(stuff) {
   var target = document.getElementById("quiz_app");
   target.appendChild(stuff);
@@ -162,21 +158,64 @@ function createAnswers(question) {
   return answers;
 }
 
-function createButtons() {
+function createButtons(qIndex, totalQs, gameObjRef) {
   // Create submit button
+  console.log("creating buttons", qIndex, totalQs);
   var buttonsDiv = document.createElement("div");
   buttonsDiv.setAttribute("id", "buttons");
-  var nextButtonHolder = document.createElement("label");
-  nextButtonHolder.textContent = "Next";
-  var nextButton = document.createElement("input");
-  nextButton.setAttribute("type", "submit");
-  nextButton.setAttribute("id", "submit_button");
-  nextButtonHolder.appendChild(nextButton);
-  buttonsDiv.appendChild(nextButtonHolder);
+  // First page
+  if (qIndex < 0) {
+    console.log("creating start button..");
+    var startButtonHolder = document.createElement("label");
+        startButtonHolder.textContent = "Start the Quiz";
+    var startButton = document.createElement("input");
+    startButton.setAttribute("type", "submit");
+    startButton.setAttribute("id", "start_button");
+    startButtonHolder.appendChild(startButton);
+
+    startButtonHolder.addEventListener("click", function(event) {
+      // Initialise game. Then load first question
+      console.log("start button firing..");
+      console.log(gameObjRef.questions);
+      if (gameObjRef.questions) {
+        gameObjRef.questionCounter = 0;
+        gameObjRef.totalQs = gameObjRef.questions.length;
+        gameObjRef.displayNextQuestion();
+      }
+      event.preventDefault();
+    });
+
+    buttonsDiv.appendChild(startButtonHolder);
+
+  // Middle pages
+  } else if (0 <= qIndex < totalQs) {
+    var nextButtonHolder = document.createElement("label");
+    nextButtonHolder.textContent = "Next";
+    var nextButton = document.createElement("input");
+    nextButton.setAttribute("type", "submit");
+    nextButton.setAttribute("id", "submit_button");
+    nextButtonHolder.appendChild(nextButton);
+
+     // Event listener for submit button
+     // Redo after more event listener practise
+    nextButtonHolder.addEventListener("click", function(event) {
+      console.log('next button firing..')
+      var answers = document.getElementsByClassName("answer_choices");
+      for (var i = 0; i < answers.length; i++) {
+        if (answers[i].checked) {
+          gameObjRef.submitQuestion(qIndex, answers[i].value);
+        }
+        // Stops form from reloading 
+        event.preventDefault();
+      }
+    });
+
+    buttonsDiv.appendChild(nextButtonHolder);
+  }
   return buttonsDiv;
 }
 
-function runGame(question_list) {
-  var CurrentGame = new Game(question_list);
-  CurrentGame.displayNextQuestion(0);
+function runGame() {
+  var CurrentGame = new Game();
+  CurrentGame.getQuestions();
 }
