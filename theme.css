@@ -156,8 +156,8 @@ input[type=radio]:checked + span > span {
     display: inline-block;
     margin: auto;
 }
-
-#buttons input {
+/* Hides submit button */
+.button input {
   width   : 0;
   margin  : 0;
   padding : 0;
@@ -199,4 +199,8 @@ input[type=radio]:checked + span > span {
     text-align: center;
     margin-left: 10vw;
     margin-right: 10vw;
+}
+
+.highlight {
+    text-decoration: underline;
 }
