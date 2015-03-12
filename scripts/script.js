@@ -1,9 +1,10 @@
+"use strict";
 // to do:
 //
-// write labeling function
-// 2 divs for questions 
+// COOKIES EXPIRY BROKEN
 
 function Game() {
+
   this.questionCounter = -1;
   this.totalQs = null;
   this.score = 0;
@@ -13,10 +14,13 @@ function Game() {
 
 
 Game.prototype.getQuestions = function() {
+
   var gameObjRef = this;
   var questionURL = "questions.json";
   this.httpRequest = new XMLHttpRequest();
+
   this.httpRequest.onreadystatechange = function() {
+
     // change status for live site- can show as 0 locally
     if (this.readyState != 4 || this.status === 404) {
       return;
@@ -32,21 +36,28 @@ Game.prototype.getQuestions = function() {
 
 
 Game.prototype.firstPage = function() {
+
   var openingMenu = document.createElement("div");
+  openingMenu.setAttribute("id", "register_form");
   var introText = document.createElement("div");
+  introText.setAttribute("id", "welcome_message");
   introText.textContent = "Welcome to the quiz. ";
   introText.textContent += "Login or Register."
   openingMenu.appendChild(introText);
   var login = this.register();
   openingMenu.appendChild(login);
+
+  var buttons = createButtons(this.questionCounter,
+                                  this.totalQs, this);
+  openingMenu.appendChild(buttons);
   
   writeToPage(openingMenu);
+
 }
 
 
-// Use prototype, users may ending up starting a new game
 Game.prototype.displayNextQuestion = function() {
-  console.log('user answers: ', this.userAnswers);
+
   var questionIndex = this.questionCounter;
   var totalQs = this.totalQs;
   if (questionIndex >= totalQs) {
@@ -61,15 +72,9 @@ Game.prototype.displayNextQuestion = function() {
   var questionText = createQuestion(currentQuestion.question);
   qForm.appendChild(questionText);
   
-  var answerContainer = document.createElement("div");
-  answerContainer.setAttribute("id", "answer_container");
-
   // Create answers. Pre-checked if already answered
   var prevAnswer = this.userAnswers[questionIndex];
-  var answerList = createAnswers(currentQuestion, prevAnswer);
-  for (var i = 0; i < answerList.length; i++) {
-    answerContainer.appendChild(answerList[i]);
-  }
+  var answerContainer = createAnswers(currentQuestion, prevAnswer);
   
   qForm.appendChild(answerContainer);
   
@@ -81,7 +86,7 @@ Game.prototype.displayNextQuestion = function() {
 
 
 Game.prototype.submitQuestion = function(question, answer) {
-  console.log('submitting..');
+
   this.userAnswers[question] = parseInt(answer);
   this.questionCounter += 1;
   this.displayNextQuestion();
@@ -89,8 +94,7 @@ Game.prototype.submitQuestion = function(question, answer) {
 
 
 Game.prototype.goBack = function(question, answer) {
-  console.log('goback firing..');
-  console.log(answer);
+
   if (answer) {
     this.userAnswers[question] = parseInt(answer);
   }
@@ -100,6 +104,7 @@ Game.prototype.goBack = function(question, answer) {
 
 
 Game.prototype.displayScore = function() {
+
   for (var i = 0; i < this.totalQs; i++) {
     if (this.userAnswers[i] === this.questions[i].correctAnswer) {
       this.score += 1;
@@ -120,10 +125,11 @@ Game.prototype.displayScore = function() {
 
 
 Game.prototype.register = function() {
+
   var gameObjRef = this;
   var regForm = document.createElement("form");
   regForm.setAttribute("action", "");
-  regForm.setAttribute("id", "register_form");
+  regForm.setAttribute("id", "login_form");
 
   var loginField = document.createElement("input");
   loginField.setAttribute("type", "text");
@@ -133,63 +139,19 @@ Game.prototype.register = function() {
   loginHolder.appendChild(loginField);
   regForm.appendChild(loginHolder);
 
-  var pwdField = document.createElement("input");
-  pwdField.setAttribute("name", "pwd");
-  var pwdHolder = document.createElement("label");
-  pwdHolder.textContent = "Password: ";
-  pwdHolder.appendChild(pwdField);
-  regForm.appendChild(pwdHolder);
-
-  var brk = document.createElement("br");
-  regForm.appendChild(brk);
-
-
-  // Create login and register buttons
-
-  var login = buttonAndLabel("login");
-  var registerButton = buttonAndLabel("register");
-  
-
-
-  var quiz = document.getElementById("quiz_app");
-  var buttons = createButtons(this.questionCounter,
-                                  this.totalQs, this);
-  // Display begin button once logged in or registered
-  login.addEventListener("click", function(event) {
-    event.preventDefault();
-    if (regForm.login.value === localStorage.login &&
-          regForm.pwd.value === localStorage.pwd) {
-      this.loggedIn = true;
-
-      removeItemById("register_form");
-
-      quiz.appendChild(buttons);
-    }
-  });
-
-  registerButton.addEventListener("click", function(event) {
-    event.preventDefault();
-    localStorage.login = regForm.login.value;
-    localStorage.pwd = regForm.pwd.value;
-
-    removeItemById("register_form");
-    quiz.appendChild(buttons);
-  });
-
-  regForm.appendChild(login);
-  regForm.appendChild(registerButton);
-
   return regForm;
 
 }
 
 function removeItemById(id) {
+
   var target = document.getElementById(id);
   target.parentNode.removeChild(target);
 }
 
 
 function clearPrevious() {
+
   var quizHolder = document.getElementById("quiz_app");
   // Remove all children of quiz holder div
   while (quizHolder.firstChild) {
@@ -199,12 +161,14 @@ function clearPrevious() {
 
 
 function writeToPage(stuff) {
+
   var target = document.getElementById("quiz_app");
   target.appendChild(stuff);
 }
 
 
 function createForm() {
+
   // Create form element holding the new question.
   var qForm = document.createElement("form");
   qForm.setAttribute("id","question_form");
@@ -214,6 +178,7 @@ function createForm() {
 
 
 function createQuestion(text) {
+
   var questionText = document.createElement("div");
   var innerTextDiv = document.createElement("div");
   innerTextDiv.textContent = text;
@@ -224,9 +189,17 @@ function createQuestion(text) {
 
 
 function createAnswers(question, prevAnswer) {
-  console.log(prevAnswer, '<-- recreating with this checked');
+
+    var answerContainer = document.createElement("div");
+    answerContainer.setAttribute("id", "answer_container");
   // Create list of answers. Half 'left' sided, half 'right' sided.
-  var answers = [];
+    var leftList = document.createElement("ul");
+    leftList.className = "answer_container";
+    leftList.setAttribute("id", "list_left");
+    var rightList = document.createElement("ul");
+    rightList.className = "answer_container"
+    rightList.setAttribute("id", "list_right");
+
   for (var i = 0; i < question.choices.length; i++) {
     var answerLabel = document.createElement("label");
     answerLabel.setAttribute("id", "answer_" + i);
@@ -246,46 +219,61 @@ function createAnswers(question, prevAnswer) {
     }
     // Class and span depending on side.
 
-    /*
-    
-    REDO WITH 2 DIVS WILL BE MUCH EASIER TO STYLE
 
-    */
     if (i < question.choices.length / 2.0) {
       answerLabel.insertBefore(button, answerLabel.firstChild);
       answerLabel.appendChild(span);
-      answerLabel.setAttribute("class", "left_answers");
+      leftList.appendChild(answerLabel);
     } else {
+      answerLabel.appendChild(span);
       answerLabel.insertBefore(span, answerLabel.firstChild);
       answerLabel.insertBefore(button, answerLabel.firstChild);
-      answerLabel.setAttribute("class", "right_answers");
+      rightList.appendChild(answerLabel);
     }
-    answers.push(answerLabel);
+    answerContainer.appendChild(leftList);
+    answerContainer.appendChild(rightList);
   }
-  return answers;
+  return answerContainer;
+}
+
+
+function createButtonsDiv() {
+
+  var buttonsDiv = document.createElement("div");
+  buttonsDiv.setAttribute("id", "buttons");
+  return buttonsDiv;
 }
 
 
 function createButtons(qIndex, totalQs, gameObjRef) {
 
-  // div holds all buttons
-  var buttonsDiv = document.createElement("div");
-  buttonsDiv.setAttribute("id", "buttons");
-
+  var buttonsDiv = createButtonsDiv();
 
   // Button to begin quiz - first page
+
   if (qIndex < 0) {
 
     var startButtonHolder = buttonAndLabel("start");
 
     startButtonHolder.addEventListener("click", function(event) {
+
+      event.preventDefault();
+      // Save login from form
+      console.log("hi");
+
+      var form = document.getElementById("login_form");
+
+      localStorage.login = form.login.value;
+      makeCookie(form.login.value);
+      this.loggedIn = true;
+
       // Initialise game. Then load first question
       if (gameObjRef.questions) {
         gameObjRef.questionCounter = 0;
         gameObjRef.totalQs = gameObjRef.questions.length;
         gameObjRef.displayNextQuestion();
       }
-      event.preventDefault();
+      
     });
 
     buttonsDiv.appendChild(startButtonHolder);
@@ -304,7 +292,6 @@ function createButtons(qIndex, totalQs, gameObjRef) {
       var answers = document.getElementsByClassName("answer_choices");
       for (var i = 0; i < answers.length; i++) {
         if (answers[i].checked) {
-          console.log('checked forward');
           gameObjRef.submitQuestion(qIndex, i);
           break;
         }
@@ -329,6 +316,7 @@ function createButtons(qIndex, totalQs, gameObjRef) {
           break;
         }
         gameObjRef.goBack(qIndex);
+        break;
       }
     });
     buttonsDiv.insertBefore(backButtonHolder, buttonsDiv.firstChild);
@@ -338,6 +326,7 @@ function createButtons(qIndex, totalQs, gameObjRef) {
 
 
 function buttonAndLabel(name) {
+
   // Create a button formatted for quiz
   var label = document.createElement("label");
   label.textContent = name[0].toUpperCase();
@@ -352,7 +341,17 @@ function buttonAndLabel(name) {
 }
 
 
+function makeCookie(name) {
+
+  var date = new Date();
+    date.setMonth(date.getMont + 1);
+    document.cookie = "username=" + name + 
+                        "; expires=";
+}
+
+
 function runGame() {
+
   var CurrentGame = new Game();
   CurrentGame.getQuestions();
 }

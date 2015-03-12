@@ -3,10 +3,10 @@ $(document).ready(function(){
   $(document.body).on("mouseover", "#buttons", function(){
     $("#buttons").children().addClass(".button");
   });
-  $(document.body).on("mouseover", ".button", function(){
+  $(document.body).on("mouseover", "label", function(){
     $(this).addClass("highlight");
   });
-  $(document.body).on("mouseleave", ".button", function(){
+  $(document.body).on("mouseleave", "label", function(){
     $(this).removeClass("highlight");
   });
 });
