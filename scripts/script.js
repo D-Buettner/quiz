@@ -138,8 +138,9 @@ Game.prototype.register = function() {
   var loginField = document.createElement("input");
   loginField.setAttribute("type", "text");
   loginField.setAttribute("name", "login");
+  loginField.setAttribute("id", "login_box");
   var loginHolder = document.createElement("label");
-  loginHolder.textContent = "Name: ";
+  loginHolder.textContent = "Name:";
   loginHolder.appendChild(loginField);
   regForm.appendChild(loginHolder);
 
@@ -348,7 +349,7 @@ function checkUsername(name) {
   for (var i = 0; i < localStorage.length; i++) {
     var val = localStorage.getItem(localStorage.key(i));
     if (val === name) {
-      jQWelcomeBack(name);
+      jQWelcome(name, "Welcome back ");
       return;
     }
 
@@ -356,7 +357,7 @@ function checkUsername(name) {
   var storageRef = "login_0";
   storageRef = findUsernameIndex(storageRef);
   localStorage[storageRef] = name;
-  jQWelcome(name);
+  jQWelcome(name, "Let's get started ");
 }
 
 function findUsernameIndex(storageRef) {
