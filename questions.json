@@ -23,6 +23,6 @@
     "choices":["The Alps", "The Rubicon", "The English Channel",
              "His Shoelaces"], "correctAnswer":1},
   {"question":"What city did the Ottoman Sultan Mehmed II 'The conqueror' capture in 1453?",
-    "choices":["Rome", "Vienna", "Jerusalem", "Constantinple"], "correctAnswer":3}
+    "choices":["Rome", "Vienna", "Jerusalem", "Constantinople"], "correctAnswer":3}
 
 ]

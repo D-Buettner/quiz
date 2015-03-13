@@ -2,6 +2,10 @@
 // to do:
 //
 // COOKIES EXPIRY BROKEN
+// cookies show previous scores on that machine?
+// login page still kinda janky
+// improve score page
+// welcome back animation
 
 function Game() {
 
@@ -42,7 +46,7 @@ Game.prototype.firstPage = function() {
   var introText = document.createElement("div");
   introText.setAttribute("id", "welcome_message");
   introText.textContent = "Welcome to the quiz. ";
-  introText.textContent += "Login or Register."
+  introText.textContent += "Please enter your name.";
   openingMenu.appendChild(introText);
   var login = this.register();
   openingMenu.appendChild(login);
@@ -135,7 +139,7 @@ Game.prototype.register = function() {
   loginField.setAttribute("type", "text");
   loginField.setAttribute("name", "login");
   var loginHolder = document.createElement("label");
-  loginHolder.textContent = "Login: ";
+  loginHolder.textContent = "Name: ";
   loginHolder.appendChild(loginField);
   regForm.appendChild(loginHolder);
 
@@ -151,7 +155,6 @@ function removeItemById(id) {
 
 
 function clearPrevious() {
-
   var quizHolder = document.getElementById("quiz_app");
   // Remove all children of quiz holder div
   while (quizHolder.firstChild) {
@@ -164,6 +167,7 @@ function writeToPage(stuff) {
 
   var target = document.getElementById("quiz_app");
   target.appendChild(stuff);
+  jQFadeIn(stuff);
 }
 
 
@@ -259,11 +263,10 @@ function createButtons(qIndex, totalQs, gameObjRef) {
 
       event.preventDefault();
       // Save login from form
-      console.log("hi");
 
       var form = document.getElementById("login_form");
-
-      localStorage.login = form.login.value;
+      checkUsername(form.login.value);
+      
       makeCookie(form.login.value);
       this.loggedIn = true;
 
@@ -340,15 +343,45 @@ function buttonAndLabel(name) {
   return label;
 }
 
+function checkUsername(name) {
+  // Check existing names
+  for (var i = 0; i < localStorage.length; i++) {
+    var val = localStorage.getItem(localStorage.key(i));
+    if (val === name) {
+      jQWelcomeBack(name);
+      return;
+    }
+
+  }
+  var storageRef = "login_0";
+  storageRef = findUsernameIndex(storageRef);
+  localStorage[storageRef] = name;
+  jQWelcome(name);
+}
+
+function findUsernameIndex(storageRef) {
+
+  // Function calls recursively untill empty slot found.
+  if (localStorage[storageRef]) {
+    var currentDigit = parseInt(storageRef.substring(storageRef.length - 1));
+    storageRef = storageRef.substring(0, storageRef.length -1)
+                                      + (currentDigit + 1);
+
+    return findUsernameIndex(storageRef);
+  } else {
+    return storageRef;
+  }
+}
 
 function makeCookie(name) {
 
   var date = new Date();
-    date.setMonth(date.getMont + 1);
+    date = date.setMonth(date.getMonth() + 1);
+    console.log(date);
+
     document.cookie = "username=" + name + 
                         "; expires=";
 }
-
 
 function runGame() {
 

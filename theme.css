@@ -49,20 +49,6 @@ html {
     height: 100%;
 }
 
-/*#register_form {
-
-    
-    margin: auto;
-    margin-left: 10%;
-    margin-right: 10%;
-    padding-top: 2vmin;
-    
-
-    border-radius: 4px;
-    line-height: normal;
-    vertical-align: middle;
-}*/
-
 header {
     font-size: 14vmin;
     text-align: center;
@@ -213,4 +199,21 @@ input[type=radio]:checked + span > span {
 
 .highlight {
     text-decoration: underline;
+}
+
+.user_message {
+    position: fixed;
+    top: 110vh;
+    margin-left: 33.33%;
+    margin-right: 33.33%;
+    width: 33.33%;
+    height: 12vh;
+    background-color: rgba(106,110,133, 0.85);
+    border-radius: 4px;
+    border: 1.5px solid black;
+    text-align: center;
+    font-size: 6vh;
+    font-family: 'Bitter', serif;
+    display: block;
+    padding-top: 4vh;
 }
