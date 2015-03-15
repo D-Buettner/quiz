@@ -3,9 +3,7 @@
 //
 // COOKIES EXPIRY BROKEN
 // cookies show previous scores on that machine?
-// login page still kinda janky
 // improve score page
-// welcome back animation
 
 function Game() {
 
@@ -119,12 +117,36 @@ Game.prototype.displayScore = function() {
   scoreString += this.score;
   scoreString += " out of ";
   scoreString += this.totalQs;
-  scoreString += " Thanks for playing the quiz!"
   scoreString = document.createTextNode(scoreString)
   var scoreStringHolder = document.createElement("div");
   scoreStringHolder.setAttribute("id", "score");
   scoreStringHolder.appendChild(scoreString);
+  
+  var rating = "";
+  var image = document.createElement("img");
+  console.log(this.score);
+  if (this.score < this.totalQs * 0.34) {
+    image.setAttribute("src", "images/flames.jpg");
+    rating = "Better luck next time.";
+  } else if (this.score < this.totalQs * 0.67) {
+    image.setAttribute("src", "images/middletown.jpg");
+    rating = "Not bad!";
+  } else {
+    image.setAttribute("src", "images/empire.jpg");
+    rating = "You are the master!";
+  }
+  var thanks = "Thanks for playing the quiz.";
+  rating = document.createTextNode(rating)
+  thanks = document.createTextNode(thanks);
+  var brk = document.createElement("br");
+  scoreStringHolder.appendChild(image);
+  scoreStringHolder.appendChild(rating);
+  scoreStringHolder.appendChild(brk);
+  scoreStringHolder.appendChild(thanks);
   writeToPage(scoreStringHolder);
+
+
+
 }
 
 

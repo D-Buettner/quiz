@@ -60,7 +60,7 @@ header {
 
 }
 
-#question_text, #welcome_message {
+#question_text, #welcome_message, #score {
     /*background-color: #E8E8E8;*/
     height: 31vmin;
     padding-top: 2vmin;
@@ -188,13 +188,15 @@ input[type=radio]:checked + span > span {
 
 #score {
     /*background-color: #E8E8E8;*/
+    height: 60;
     width: 67%;
     margin: auto;
     margin-top: 0.4em;
     text-align: center;
     font-family: 'Bitter', serif;
-    font-size: 10vmin;
+    font-size: 8vmin;
     border-radius: 4px;
+    display: block;
 }
 
 #login_box {
@@ -223,4 +225,13 @@ input[type=radio]:checked + span > span {
     color: #F2F2F2;
     display: block;
     padding-top: 4vh;
+}
+
+img {
+
+    height: 30vh;
+    width: 40vw;
+    display: block;
+    text-align: center;
+    margin-left: 12vw;
 }
