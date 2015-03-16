@@ -127,7 +127,7 @@ Game.prototype.displayScore = function() {
   console.log(this.score);
   if (this.score < this.totalQs * 0.34) {
     image.setAttribute("src", "images/flames.jpg");
-    rating = "Better luck next time.";
+    rating = "Better luck next timex.";
   } else if (this.score < this.totalQs * 0.67) {
     image.setAttribute("src", "images/middletown.jpg");
     rating = "Not bad!";
@@ -161,6 +161,12 @@ Game.prototype.register = function() {
   loginField.setAttribute("type", "text");
   loginField.setAttribute("name", "login");
   loginField.setAttribute("id", "login_box");
+  if (document.cookie) {
+    var cookie = document.cookie;
+    console.log(cookie);
+    var userName = cookie.substring(cookie.indexOf("=") + 1);
+    loginField.setAttribute("value", userName);
+  }
   var loginHolder = document.createElement("label");
   loginHolder.textContent = "Name:";
   loginHolder.appendChild(loginField);
@@ -169,6 +175,7 @@ Game.prototype.register = function() {
   return regForm;
 
 }
+
 
 function removeItemById(id) {
 
@@ -366,6 +373,7 @@ function buttonAndLabel(name) {
   return label;
 }
 
+
 function checkUsername(name) {
   // Check existing names
   for (var i = 0; i < localStorage.length; i++) {
@@ -382,6 +390,7 @@ function checkUsername(name) {
   jQWelcome(name, "Let's get started ");
 }
 
+
 function findUsernameIndex(storageRef) {
 
   // Function calls recursively untill empty slot found.
@@ -396,15 +405,16 @@ function findUsernameIndex(storageRef) {
   }
 }
 
+
 function makeCookie(name) {
 
   var date = new Date();
-    date = date.setMonth(date.getMonth() + 1);
+    date = new Date(date.setMonth(date.getMonth() + 1));
     console.log(date);
-
-    document.cookie = "username=" + name + 
-                        "; expires=";
+    var cookieString = "username=" + name + "; expires=" + date.toGMTString();
+    document.cookie = cookieString;
 }
+
 
 function runGame() {
 
