@@ -1,7 +1,7 @@
 [
 
-  {"question":"Gavrilo Princip assasinated the Archduke Franz Ferdinand in 1914, leading to the onset of WWI. What country was he from?",
-    "choices":["Russia", "Germany", "Bosnia", "Serbia"], "correctAnswer":3},
+  {"question":"Gavrilo Princip assasinated the Archduke Franz Ferdinand in 1914, leading to the onset of WWI. What country was he born in?",
+    "choices":["Russia", "Germany", "Bosnia", "Serbia"], "correctAnswer":2},
   {"question":"What was Attila the Hun also known as?", 
     "choices":["The Scourge of the West", "The Scourge of God", 
               "The Scourge of the Papacy","Jody Highroller"], "correctAnswer":1},
