@@ -163,7 +163,7 @@ Game.prototype.register = function() {
   loginField.setAttribute("id", "login_box");
   if (document.cookie) {
     var cookie = document.cookie;
-    console.log(cookie);
+    console.log('hey', cookie);
     var userName = cookie.substring(cookie.indexOf("=") + 1);
     loginField.setAttribute("value", userName);
   }
