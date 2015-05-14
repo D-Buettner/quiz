@@ -1,9 +1,4 @@
 "use strict";
-// to do:
-//
-// COOKIES EXPIRY BROKEN
-// cookies show previous scores on that machine?
-// improve score page
 
 function Game() {
 
@@ -127,7 +122,7 @@ Game.prototype.displayScore = function() {
   console.log(this.score);
   if (this.score < this.totalQs * 0.34) {
     image.setAttribute("src", "images/flames.jpg");
-    rating = "Better luck next timex.";
+    rating = "Better luck next time.";
   } else if (this.score < this.totalQs * 0.67) {
     image.setAttribute("src", "images/middletown.jpg");
     rating = "Not bad!";
@@ -163,8 +158,9 @@ Game.prototype.register = function() {
   loginField.setAttribute("id", "login_box");
   if (document.cookie) {
     var cookie = document.cookie;
-    console.log('hey', cookie);
-    var userName = cookie.substring(cookie.indexOf("=") + 1);
+
+    var userName = cookie.substring(cookie.indexOf("=") + 1)
+
     loginField.setAttribute("value", userName);
   }
   var loginHolder = document.createElement("label");
