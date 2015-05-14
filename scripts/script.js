@@ -158,7 +158,9 @@ Game.prototype.register = function() {
   if (document.cookie) {
     var cookie = document.cookie;
 
-    var userName = cookie.substring(cookie.indexOf("=") + 1)
+    // Doesn't work properly on local environment.
+    var userName = cookie.substring(cookie.indexOf("=") + 1,
+                                    cookie.indexOf(";"));
 
     loginField.setAttribute("value", userName);
   }
@@ -179,7 +181,7 @@ function removeItemById(id) {
 
 
 function clearPrevious() {
-  
+
   var quizHolder = document.getElementById("quiz_app");
   // Remove all children of quiz holder div
   while (quizHolder.firstChild) {
