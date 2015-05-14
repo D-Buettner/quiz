@@ -36,20 +36,21 @@ Game.prototype.firstPage = function() {
 
   var openingMenu = document.createElement("div");
   openingMenu.setAttribute("id", "register_form");
+
   var introText = document.createElement("div");
   introText.setAttribute("id", "welcome_message");
   introText.textContent = "Welcome to the quiz. ";
   introText.textContent += "Please enter your name.";
+
   openingMenu.appendChild(introText);
   var login = this.register();
   openingMenu.appendChild(login);
 
   var buttons = createButtons(this.questionCounter,
-                                  this.totalQs, this);
+                              this.totalQs, this);
   openingMenu.appendChild(buttons);
   
   writeToPage(openingMenu);
-
 }
 
 
@@ -131,6 +132,7 @@ Game.prototype.displayScore = function() {
     rating = "You are the master!";
   }
   var thanks = "Thanks for playing the quiz.";
+
   rating = document.createTextNode(rating)
   thanks = document.createTextNode(thanks);
   var brk = document.createElement("br");
@@ -139,9 +141,6 @@ Game.prototype.displayScore = function() {
   scoreStringHolder.appendChild(brk);
   scoreStringHolder.appendChild(thanks);
   writeToPage(scoreStringHolder);
-
-
-
 }
 
 
@@ -169,7 +168,6 @@ Game.prototype.register = function() {
   regForm.appendChild(loginHolder);
 
   return regForm;
-
 }
 
 
@@ -181,6 +179,7 @@ function removeItemById(id) {
 
 
 function clearPrevious() {
+  
   var quizHolder = document.getElementById("quiz_app");
   // Remove all children of quiz holder div
   while (quizHolder.firstChild) {
