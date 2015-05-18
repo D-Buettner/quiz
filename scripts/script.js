@@ -159,8 +159,10 @@ Game.prototype.register = function() {
     var cookie = document.cookie;
 
     // Doesn't work properly on local environment.
-    var userName = cookie.substring(cookie.indexOf("=") + 1,
-                                    cookie.indexOf(";"));
+    console.log(cookie);
+    var cookieRegEx = /username=(\w+)\B/;
+    var userName = cookie.replace(cookieRegEx, "$1");
+    
 
     loginField.setAttribute("value", userName);
   }
