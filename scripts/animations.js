@@ -2,10 +2,10 @@
 
   var jQFadeIn = function(target) {
     $(target).hide().fadeIn();
-  }
+  };
 
 var jQWelcome = function(name, message) {
-  var messageObject = $("<div/>")
+  var messageObject = $("<div/>");
   $(document.body).append(messageObject);
   messageObject.text(message + name + "!");
   messageObject.addClass("user_message");

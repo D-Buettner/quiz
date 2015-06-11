@@ -1,5 +1,3 @@
-"use strict";
-
 function Game() {
 
   this.questionCounter = -1;
@@ -26,10 +24,10 @@ Game.prototype.getQuestions = function() {
       gameObjRef.firstPage();
       return;
     }
-  }
+  };
   this.httpRequest.open("GET", questionURL, true);
   this.httpRequest.send();
-}
+};
 
 
 Game.prototype.firstPage = function() {
@@ -51,7 +49,7 @@ Game.prototype.firstPage = function() {
   openingMenu.appendChild(buttons);
   
   writeToPage(openingMenu);
-}
+};
 
 
 Game.prototype.displayNextQuestion = function() {
@@ -80,7 +78,7 @@ Game.prototype.displayNextQuestion = function() {
   qForm.appendChild(buttons);
 
   writeToPage(qForm);
-}
+};
 
 
 Game.prototype.submitQuestion = function(question, answer) {
@@ -88,7 +86,7 @@ Game.prototype.submitQuestion = function(question, answer) {
   this.userAnswers[question] = parseInt(answer);
   this.questionCounter += 1;
   this.displayNextQuestion();
-}
+};
 
 
 Game.prototype.goBack = function(question, answer) {
@@ -98,7 +96,7 @@ Game.prototype.goBack = function(question, answer) {
   }
   this.questionCounter -= 1;
   this.displayNextQuestion();
-}
+};
 
 
 Game.prototype.displayScore = function() {
@@ -113,7 +111,7 @@ Game.prototype.displayScore = function() {
   scoreString += this.score;
   scoreString += " out of ";
   scoreString += this.totalQs;
-  scoreString = document.createTextNode(scoreString)
+  scoreString = document.createTextNode(scoreString);
   var scoreStringHolder = document.createElement("div");
   scoreStringHolder.setAttribute("id", "score");
   scoreStringHolder.appendChild(scoreString);
@@ -133,7 +131,7 @@ Game.prototype.displayScore = function() {
   }
   var thanks = "Thanks for playing the quiz.";
 
-  rating = document.createTextNode(rating)
+  rating = document.createTextNode(rating);
   thanks = document.createTextNode(thanks);
   var brk = document.createElement("br");
   scoreStringHolder.appendChild(image);
@@ -141,12 +139,11 @@ Game.prototype.displayScore = function() {
   scoreStringHolder.appendChild(brk);
   scoreStringHolder.appendChild(thanks);
   writeToPage(scoreStringHolder);
-}
+};
 
 
 Game.prototype.register = function() {
 
-  var gameObjRef = this;
   var regForm = document.createElement("form");
   regForm.setAttribute("action", "");
   regForm.setAttribute("id", "login_form");
@@ -172,14 +169,7 @@ Game.prototype.register = function() {
   regForm.appendChild(loginHolder);
 
   return regForm;
-}
-
-
-function removeItemById(id) {
-
-  var target = document.getElementById(id);
-  target.parentNode.removeChild(target);
-}
+};
 
 
 function clearPrevious() {
@@ -230,7 +220,7 @@ function createAnswers(question, prevAnswer) {
     leftList.className = "answer_container";
     leftList.setAttribute("id", "list_left");
     var rightList = document.createElement("ul");
-    rightList.className = "answer_container"
+    rightList.className = "answer_container";
     rightList.setAttribute("id", "list_right");
 
   for (var i = 0; i < question.choices.length; i++) {
@@ -245,7 +235,7 @@ function createAnswers(question, prevAnswer) {
     button.setAttribute("type", "radio");
     button.setAttribute("name", "selected_answer");
     button.setAttribute("value", i);
-    button.setAttribute("class", 'answer_choices')
+    button.setAttribute("class", 'answer_choices');
     // Pre-checked if already 
     if (prevAnswer === i) {
       button.setAttribute("checked", true);
@@ -364,7 +354,7 @@ function buttonAndLabel(name) {
   label.textContent = name[0].toUpperCase();
   label.textContent += name.substring(1);
   var button = document.createElement("input");
-  button.setAttribute("type", "submit")
+  button.setAttribute("type", "submit");
   button.setAttribute("id", name + "_button");
   label.className = "button";
   label.appendChild(button);
@@ -395,8 +385,7 @@ function findUsernameIndex(storageRef) {
   // Function calls recursively untill empty slot found.
   if (localStorage[storageRef]) {
     var currentDigit = parseInt(storageRef.substring(storageRef.length - 1));
-    storageRef = storageRef.substring(0, storageRef.length -1)
-                                      + (currentDigit + 1);
+    storageRef = storageRef.substring(0, storageRef.length -1) + (currentDigit + 1);
 
     return findUsernameIndex(storageRef);
   } else {
