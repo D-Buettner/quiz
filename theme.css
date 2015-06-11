@@ -106,6 +106,7 @@ header {
 }
 
 .answer_container label {
+    cursor: pointer;
     padding-top: 1vmin;
     height: 10vh;
     display: block;
@@ -171,6 +172,7 @@ input[type=radio]:checked + span > span {
     font-size: 7.2vmin;
 }
 .button {
+    cursor: pointer;
     padding-left: 2vw;
     padding-right: 2vw;
 }
