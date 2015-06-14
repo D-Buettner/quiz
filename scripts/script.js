@@ -45,7 +45,7 @@ Game.prototype.firstPage = function() {
   openingMenu.appendChild(login);
 
   var buttons = createButtons(this.questionCounter,
-                              this.totalQs, this);
+                                this.totalQs, this);
   openingMenu.appendChild(buttons);
   
   writeToPage(openingMenu);
@@ -106,6 +106,7 @@ Game.prototype.displayScore = function() {
       this.score += 1;
     }
   }
+
   clearPrevious();
   var scoreString = "You scored: ";
   scoreString += this.score;
@@ -118,7 +119,7 @@ Game.prototype.displayScore = function() {
   
   var rating = "";
   var image = document.createElement("img");
-  console.log(this.score);
+
   if (this.score < this.totalQs * 0.34) {
     image.setAttribute("src", "images/flames.jpg");
     rating = "Better luck next time.";
@@ -155,12 +156,9 @@ Game.prototype.register = function() {
   if (document.cookie) {
     var cookie = document.cookie;
 
-    // Doesn't work properly on local environment.
-    console.log(cookie);
     var cookieRegEx = /username=(\w+)\B/;
     var userName = cookie.replace(cookieRegEx, "$1");
     
-
     loginField.setAttribute("value", userName);
   }
   var loginHolder = document.createElement("label");
@@ -196,6 +194,7 @@ function createForm() {
   var qForm = document.createElement("form");
   qForm.setAttribute("id","question_form");
   qForm.setAttribute("action","");
+
   return qForm;
 }
 
@@ -207,41 +206,46 @@ function createQuestion(text) {
   innerTextDiv.textContent = text;
   questionText.appendChild(innerTextDiv);
   questionText.setAttribute("id", "question_text");
+
   return questionText;
 }
 
 
 function createAnswers(question, prevAnswer) {
 
-    var answerContainer = document.createElement("div");
-    answerContainer.setAttribute("id", "answer_container");
+  var answerContainer = document.createElement("div");
+  answerContainer.setAttribute("id", "answer_container");
+
   // Create list of answers. Half 'left' sided, half 'right' sided.
-    var leftList = document.createElement("ul");
-    leftList.className = "answer_container";
-    leftList.setAttribute("id", "list_left");
-    var rightList = document.createElement("ul");
-    rightList.className = "answer_container";
-    rightList.setAttribute("id", "list_right");
+  var leftList = document.createElement("ul");
+  leftList.className = "answer_container";
+  leftList.setAttribute("id", "list_left");
+
+  var rightList = document.createElement("ul");
+  rightList.className = "answer_container";
+  rightList.setAttribute("id", "list_right");
 
   for (var i = 0; i < question.choices.length; i++) {
     var answerLabel = document.createElement("label");
     answerLabel.setAttribute("id", "answer_" + i);
+
     // textContent preferred over innerHTML
     answerLabel.textContent = question.choices[i];
+
     // Spans to create custom radio button.
     var span = document.createElement("span");
     span.appendChild(document.createElement("span"));
+
     var button = document.createElement("input");
     button.setAttribute("type", "radio");
     button.setAttribute("name", "selected_answer");
     button.setAttribute("value", i);
     button.setAttribute("class", 'answer_choices');
-    // Pre-checked if already 
+
+    // Pre-checked if already answered
     if (prevAnswer === i) {
       button.setAttribute("checked", true);
     }
-    // Class and span depending on side.
-
 
     if (i < question.choices.length / 2.0) {
       answerLabel.insertBefore(button, answerLabel.firstChild);
@@ -256,6 +260,7 @@ function createAnswers(question, prevAnswer) {
     answerContainer.appendChild(leftList);
     answerContainer.appendChild(rightList);
   }
+
   return answerContainer;
 }
 
@@ -264,6 +269,7 @@ function createButtonsDiv() {
 
   var buttonsDiv = document.createElement("div");
   buttonsDiv.setAttribute("id", "buttons");
+
   return buttonsDiv;
 }
 
@@ -273,7 +279,6 @@ function createButtons(qIndex, totalQs, gameObjRef) {
   var buttonsDiv = createButtonsDiv();
 
   // Button to begin quiz - first page
-
   if (qIndex < 0) {
 
     var startButtonHolder = buttonAndLabel("start");
@@ -301,9 +306,7 @@ function createButtons(qIndex, totalQs, gameObjRef) {
     buttonsDiv.appendChild(startButtonHolder);
   }
 
-
   // Middle pages - next question button
-
   if (0 <= qIndex < totalQs) {
     var nextButtonHolder = buttonAndLabel("next");
 
@@ -322,9 +325,7 @@ function createButtons(qIndex, totalQs, gameObjRef) {
     buttonsDiv.appendChild(nextButtonHolder);
   }
 
-
   // Second Q and onwards - back button
-
   if (qIndex > 0) {
     var backButtonHolder = buttonAndLabel("back");
 
@@ -343,6 +344,7 @@ function createButtons(qIndex, totalQs, gameObjRef) {
     });
     buttonsDiv.insertBefore(backButtonHolder, buttonsDiv.firstChild);
   }
+  
   return buttonsDiv;
 }
 
@@ -385,8 +387,8 @@ function findUsernameIndex(storageRef) {
   // Function calls recursively untill empty slot found.
   if (localStorage[storageRef]) {
     var currentDigit = parseInt(storageRef.substring(storageRef.length - 1));
-    storageRef = storageRef.substring(0, storageRef.length -1) + (currentDigit + 1);
-
+    storageRef = storageRef.substring(0, storageRef.length -1)
+                                        + (currentDigit + 1);
     return findUsernameIndex(storageRef);
   } else {
     return storageRef;
