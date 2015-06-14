@@ -1,10 +1,13 @@
-  $("#quiz_app").hide().fadeIn();
+$("#quiz_app").hide().fadeIn();
 
-  var jQFadeIn = function(target) {
-    $(target).hide().fadeIn();
-  };
+function jQFadeIn(target) {
 
-var jQWelcome = function(name, message) {
+  $(target).hide().fadeIn();
+};
+
+
+function jQWelcome(name, message) {
+
   var messageObject = $("<div/>");
   $(document.body).append(messageObject);
   messageObject.text(message + name + "!");
@@ -15,10 +18,10 @@ var jQWelcome = function(name, message) {
   messageObject.animate({"top": "110vh"}, 600);
 };
 
-// Button Animations
 
 $(document).ready(function(){
 
+  // Button Animations
   $(document.body).on("mouseover", "label", function(){
     $(this).addClass("highlight");
   });
@@ -26,7 +29,6 @@ $(document).ready(function(){
   $(document.body).on("mouseleave", "label", function(){
     $(this).removeClass("highlight");
   });
-
 });
 
 
