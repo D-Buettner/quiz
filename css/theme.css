@@ -188,5 +188,13 @@ img {
     width: 40vw;
     display: block;
     text-align: center;
+<<<<<<< HEAD
     margin: auto;
 }
+||||||| merged common ancestors
+    margin-left: 12vw;
+}
+=======
+    margin: auto;
+}
+>>>>>>> c2dbe6295d02193b4e557626a89ba5044cafc040
