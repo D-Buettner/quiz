@@ -153,6 +153,13 @@ Game.prototype.register = function() {
   loginField.setAttribute("type", "text");
   loginField.setAttribute("name", "login");
   loginField.setAttribute("id", "login_box");
+
+  // If form only has one input it submits on enter.
+  // Create second to prevent this behavior.
+
+  var phantomField = document.createElement("input");
+  phantomField.style.display = "none";
+
   if (document.cookie) {
     var cookie = document.cookie;
 
@@ -164,6 +171,7 @@ Game.prototype.register = function() {
   var loginHolder = document.createElement("label");
   loginHolder.textContent = "Name:";
   loginHolder.appendChild(loginField);
+  loginHolder.appendChild(phantomField);
   regForm.appendChild(loginHolder);
 
   return regForm;
@@ -303,6 +311,15 @@ function createButtons(qIndex, totalQs, gameObjRef) {
       
     });
 
+    // Hack to prevent page reload if user hits enter
+
+    document.addEventListener("keypress", function(event) {
+      console.log(event.keyode);
+      if (event.keycode === 13){
+        return false;
+      }
+    });
+
     buttonsDiv.appendChild(startButtonHolder);
   }
 
@@ -387,8 +404,8 @@ function findUsernameIndex(storageRef) {
   // Function calls recursively untill empty slot found.
   if (localStorage[storageRef]) {
     var currentDigit = parseInt(storageRef.substring(storageRef.length - 1));
-    storageRef = storageRef.substring(0, storageRef.length -1)
-                                        + (currentDigit + 1);
+    storageRef = storageRef.substring(0, storageRef.length -1) +
+                                        (currentDigit + 1);
     return findUsernameIndex(storageRef);
   } else {
     return storageRef;
